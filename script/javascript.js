@@ -1,42 +1,65 @@
 const results = ['Rock','Paper', 'Scissors']
-let win = 0;
+let playerScore = 0, computerScore = 0;
 
-function computerPlay() {
-    return results[Math.floor(Math.random()*3)]
-}
+let playerSelection, computerSelection;
 
-function getChoice () {
+//function computerPlay() {
+    
+//}
+
+/*function getChoice () {
     let choice = prompt("Please enter your choice","Rock");
     return (choice.charAt(0).toUpperCase() + choice.slice(1).toLowerCase());
-}
+    const button = document.querySelector('button');
+        button.addEventListener('click', () => {
+            alert(button.id);
+            console.log(button.id)
+          });
+        };*/
 
 
-function playRound(playerSelection,computerSelection) {
+
+function playRound() {
     
-    computerSelection = computerPlay();
+    computerSelection = results[Math.floor(Math.random()*3)];
     
-    playerSelection = getChoice()
+    
+    // playerSelection = getChoice()
     if (computerSelection== playerSelection) {
         alert("Draw")
     } else if (
         computerSelection == "Scissors" && playerSelection == "Rock"||computerSelection == "Rock" &&  playerSelection == "Paper"|| computerSelection == "Paper"&&playerSelection=="Scissors")  {
-            alert(`You win! ${playerSelection} beat ${computerSelection} `)
         
-            win += 1;
+            playerScore += 1;
+            div1.textContent = `Your score: ${playerScore}`
     } else {
-        alert("You lose!")
+        computerScore +=1;
+        div2.textContent = `Computer score: ${computerScore}`
+
+    }
+    if (playerScore == 5) {
+        alert("You win!")
+    } else if (computerScore == 5) {
+        alert("You lose!!!!!!!!!!!!")
     }
     console.log(computerSelection);
     console.log(playerSelection);
+};
 
-}
-for (let i = 0; i < 5; i++) {
-    playRound();
+const btns = document.querySelectorAll("button");
+btns.forEach((button) => {
+    button.addEventListener('click',function () {
+        playerSelection =button.innerText;})
+    button.addEventListener('click',playRound);
 
-}
-if (win >=3) {
-    alert(`Congratulation! You win ${win}/5`)
-}else{
-    alert(`Shame on you :)))) ${win}/5`)
-}
-window.alert("you win")
+    })
+
+const body = document.querySelector('body');
+const div1 = document.createElement('div');
+div1.classList.add('your-score');
+div1.textContent = "Your score:"
+body.appendChild(div1);
+const div2 = document.createElement('div');
+div2.classList.add('computer-score');
+div2.textContent = "Computer score:"
+body.appendChild(div2);
